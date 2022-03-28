@@ -30,3 +30,7 @@ output "private_subnet_ids" {
 output "datastore_subnet_ids" {
   value = module.vpc.intra_subnets
 }
+
+output "technical_wildercard_certificate_arn" {
+  value = module.technical_wildcard.certificate_arn
+}

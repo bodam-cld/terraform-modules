@@ -1,10 +1,6 @@
-locals {
-  lb_name = "${var.environment}-${var.name}"
-}
-
 resource "aws_security_group" "alb" {
-  name        = local.lb_name
-  description = "${local.lb_name} ALB default SG"
+  name        = var.name
+  description = "${var.name} ALB default SG"
   vpc_id      = var.vpc_id
 }
 
@@ -40,12 +36,12 @@ resource "aws_security_group_rule" "ingress_https" {
 
 # load balancer
 resource "aws_lb" "this" {
-  name                       = local.lb_name
+  name                       = var.name
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.alb.id]
   subnets                    = var.subnet_ids
-  enable_deletion_protection = true
+  enable_deletion_protection = var.enable_deletion_protection
   ip_address_type            = "ipv4"
 }
 

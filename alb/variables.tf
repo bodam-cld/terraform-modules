@@ -21,3 +21,9 @@ variable "certificate_arn" {
   type        = string
   description = "The ARN for the SSL certificate for the HTTPS listener"
 }
+
+variable "enable_deletion_protection" {
+  type        = bool
+  default     = true
+  description = "Enable deletion protection for the ALB"
+}
