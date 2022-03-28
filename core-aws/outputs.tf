@@ -14,3 +14,23 @@ output "deployment_bucket" {
     s3_deployment_bucket = aws_s3_bucket.deployment.id
   }
 }
+
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
+
+output "public_subnet_ids" {
+  value = module.vpc.public_subnets
+}
+
+output "private_subnet_ids" {
+  value = module.vpc.private_subnets
+}
+
+output "datastore_subnet_ids" {
+  value = module.vpc.intra_subnets
+}
+
+output "technical_wildcard_certificate_arn" {
+  value = module.technical_wildcard.certificate_arn
+}
