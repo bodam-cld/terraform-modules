@@ -31,6 +31,6 @@ output "datastore_subnet_ids" {
   value = module.vpc.intra_subnets
 }
 
-output "technical_wildercard_certificate_arn" {
+output "technical_wildcard_certificate_arn" {
   value = module.technical_wildcard.certificate_arn
 }
