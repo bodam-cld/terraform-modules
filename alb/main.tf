@@ -1,7 +1,15 @@
 resource "aws_security_group" "alb" {
-  name        = var.name
+  name        = "${var.name}-alb"
   description = "${var.name} ALB default SG"
   vpc_id      = var.vpc_id
+
+  tags = {
+    Name = "${var.name}-alb"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "egress" {
