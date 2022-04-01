@@ -36,11 +36,11 @@ output "technical_wildcard_certificate_arn" {
 }
 
 output "default_db_subnet_group_id" {
-  value = var.create_db_subnet_groups ? aws_security_group.default_rds[0].id : null
+  value = var.create_db_subnet_groups ? aws_db_subnet_group.default[0].id : null
 }
 
 output "default_db_subnet_group_arn" {
-  value = var.create_db_subnet_groups ? aws_security_group.default_rds[0].arn : null
+  value = var.create_db_subnet_groups ? aws_db_subnet_group.default[0].arn : null
 }
 
 output "default_db_security_group_id" {
