@@ -11,7 +11,7 @@ variable "service_name" {
 }
 
 variable "parameters" {
-  type = map(object({
+  type = list(object({
     name                = string
     value               = string
     type                = optional(string)
