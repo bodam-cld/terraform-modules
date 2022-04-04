@@ -48,5 +48,5 @@ variable "iam_roles_require_mfa" {
 variable "create_db_subnet_groups" {
   type        = bool
   default     = false
-  description = "If true, it will create a default DB subnet group and a default permissive DB security group"
+  description = "If true, it will create a default DB subnet group"
 }
