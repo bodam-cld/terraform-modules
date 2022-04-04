@@ -8,10 +8,10 @@ locals {
   create_key = var.kms_key_id == ""
 
   # Parameters whose values are set outside of terraform
-  value_ignored_parameters = { for k, parameter in local.parameters : k => parameter if parameter.ignore_value_change }
+  value_ignored_parameters = { for parameter in local.parameters : parameter.name => parameter if parameter.ignore_value_change }
 
   # Parameters that are fully managed by terraform
-  value_following_parameters = { for k, parameter in local.parameters : k => parameter if !parameter.ignore_value_change }
+  value_following_parameters = { for parameter in local.parameters : parameter.name => parameter if !parameter.ignore_value_change }
 }
 
 resource "aws_ssm_parameter" "managed_by_tf" {
