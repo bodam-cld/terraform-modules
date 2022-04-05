@@ -23,8 +23,8 @@ resource "aws_db_instance" "this" {
   storage_encrypted = true
 
   allow_major_version_upgrade = false
-  apply_immediately           = true
-  auto_minor_version_upgrade  = true
+  apply_immediately           = var.apply_immediately
+  auto_minor_version_upgrade  = var.auto_minor_version_upgrade
 
   backup_retention_period = var.backup_retention_period_days
   backup_window           = "02:00-03:00"
@@ -38,6 +38,10 @@ resource "aws_db_instance" "this" {
   password = random_password.password.result
   db_name  = var.db_name
   port     = local.port
+
+  performance_insights_enabled          = true
+  performance_insights_kms_key_id       = var.performance_insights_kms_key_id
+  performance_insights_retention_period = var.performance_insights_retention_period
 
   db_subnet_group_name   = var.db_subnet_group_name
   vpc_security_group_ids = concat(var.vpc_security_group_ids, aws_security_group.this.*.id)
@@ -68,7 +72,7 @@ resource "aws_db_parameter_group" "this" {
 resource "aws_security_group" "this" {
   count       = length(var.allow_ingress_from_security_group_ids) > 0 ? 1 : 0
   name        = "${var.identifier}-rds"
-  description = "${var.identifier} RDS container security group."
+  description = "${var.identifier} RDS security group."
   vpc_id      = var.vpc_id
 
   tags = {
