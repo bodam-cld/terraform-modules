@@ -7,7 +7,12 @@ locals {
   port = coalesce(var.port, local.ports[var.engine])
 }
 
-resource "random_password" "password" {
+moved {
+  from = random_password.password
+  to   = random_password.root_password
+}
+
+resource "random_password" "root_password" {
   length           = var.random_password_length
   override_special = "!#$%&*()-_=+[]{}<>:?" # beacuse some characters are not allowed, '@', '"', ' ', '/'
 }
@@ -34,8 +39,8 @@ resource "aws_db_instance" "this" {
   parameter_group_name = aws_db_parameter_group.this.name
   publicly_accessible  = false
 
-  username = var.username
-  password = random_password.password.result
+  username = var.root_username
+  password = random_password.root_password.result
   db_name  = var.db_name
   port     = local.port
 

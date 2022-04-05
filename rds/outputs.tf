@@ -1,15 +1,10 @@
-output "password" {
+output "root_username" {
+  value = aws_db_instance.this.username
+}
+
+output "root_password" {
   sensitive = true
   value     = random_password.password.result
-}
-
-output "password_url_encode" {
-  sensitive = true
-  value     = urlencode(random_password.password.result)
-}
-
-output "username" {
-  value = aws_db_instance.this.username
 }
 
 output "host" {

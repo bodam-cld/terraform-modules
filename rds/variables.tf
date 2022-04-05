@@ -80,10 +80,10 @@ variable "parameters" {
   default = []
 }
 
-variable "username" {
+variable "root_username" {
   type        = string
   default     = null
-  description = "The database user name"
+  description = "The database root user name"
 }
 
 variable "db_name" {
