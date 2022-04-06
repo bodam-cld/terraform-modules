@@ -16,10 +16,11 @@ resource "aws_security_group_rule" "allow_outbound" {
   description       = "All all outbound"
   security_group_id = aws_security_group.this.id
 
-  type        = "egress"
-  from_port   = 0
-  to_port     = 0
-  protocol    = "-1"
+  type      = "egress"
+  from_port = 0
+  to_port   = 0
+  protocol  = "-1"
+  #tfsec:ignore:aws-vpc-no-public-egress-sgr => For now we allow all connections out
   cidr_blocks = ["0.0.0.0/0"]
 }
 

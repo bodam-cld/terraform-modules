@@ -91,4 +91,5 @@ resource "aws_ecs_service" "this" {
 resource "aws_cloudwatch_log_group" "this" {
   name              = "/ecs/${var.environment}/${var.service_name}"
   retention_in_days = var.log_retention_in_days
+  kms_key_id        = var.kms_key_id
 }

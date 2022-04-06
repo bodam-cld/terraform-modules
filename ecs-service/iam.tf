@@ -82,18 +82,18 @@ data "aws_iam_policy_document" "ssm_and_secrets" {
       "kms:Decrypt"
     ]
 
-    resources = ["arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "aws:ResourceTag/ServiceName"
-      values   = [var.service_name]
-    }
+    resources = [var.kms_key_id]
   }
 }
 
-resource "aws_iam_role_policy" "ssm_and_secrets" {
+resource "aws_iam_role_policy" "execution_ssm_and_secrets" {
   name   = "ssm-and-secret-access"
   role   = aws_iam_role.task_execution_role.name
+  policy = data.aws_iam_policy_document.ssm_and_secrets.json
+}
+
+resource "aws_iam_role_policy" "task_ssm_and_secrets" {
+  name   = "ssm-and-secret-access"
+  role   = aws_iam_role.task_role.name
   policy = data.aws_iam_policy_document.ssm_and_secrets.json
 }

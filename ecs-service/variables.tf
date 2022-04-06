@@ -59,10 +59,6 @@ variable "container_definitions" {
       containerPort = number
     })),
     memoryReservation = number,
-    # healthcheck : {
-    #   test : ["CMD", "service", "nginx", "status"]
-    #   timeout : 10
-    # }
   }))
   default = [
     {
@@ -104,4 +100,14 @@ variable "listener_rules" {
     }))
   }))
   default = []
+}
+
+variable "kms_key_id" {
+  type        = string
+  description = "The KMS key id that is used to encrypt SSM parameters, ECR repository, cloudwatch logs."
+}
+
+variable "ecr_image_tag_mutability" {
+  type    = string
+  default = "IMMUTABLE"
 }
