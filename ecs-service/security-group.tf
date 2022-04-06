@@ -20,7 +20,7 @@ resource "aws_security_group_rule" "allow_outbound" {
   from_port = 0
   to_port   = 0
   protocol  = "-1"
-  #tfsec:ignore:aws-vpc-no-public-egress-sgr => For now we allow all connections out
+  #tfsec:ignore:aws-vpc-no-public-egress-sgr => Internet services need to be accessed  (although just a GW would be enough) but at this point limiting to e.g. RDS SGs would be complicated (and its access is restricted by an SG anyway)
   cidr_blocks = ["0.0.0.0/0"]
 }
 
