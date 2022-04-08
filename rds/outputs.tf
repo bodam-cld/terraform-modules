@@ -4,7 +4,7 @@ output "root_username" {
 
 output "root_password" {
   sensitive = true
-  value     = random_password.password.result
+  value     = random_password.root_password.result
 }
 
 output "host" {
