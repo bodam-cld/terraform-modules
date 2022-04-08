@@ -22,13 +22,5 @@ variable "parameters" {
 }
 
 variable "kms_key_arn" {
-  type        = string
-  default     = ""
-  description = "If described, SSM is configured to use this key, otherwise a new key is generated"
-}
-
-variable "kms_enable_key_rotation" {
-  type        = bool
-  default     = false
-  description = "Set automatic rotation if `kms_key_arn` is not defined and the module creates its own key. Each version of each key results in extra cost https://aws.amazon.com/kms/pricing/ ."
+  type = string
 }
