@@ -4,8 +4,8 @@ locals {
     ignore_value_change = false
   })
 
-  kms_key_id = var.kms_key_id != "" ? var.kms_key_id : aws_kms_key.ssm[0].key_id
-  create_key = var.kms_key_id == ""
+  kms_key_arn = var.kms_key_arn != "" ? var.kms_key_arn : aws_kms_key.ssm[0].key_id
+  create_key  = var.kms_key_arn == ""
 
   # Parameters whose values are set outside of terraform
   value_ignored_parameters = { for parameter in local.parameters : parameter.name => parameter if parameter.ignore_value_change }
@@ -21,7 +21,7 @@ resource "aws_ssm_parameter" "managed_by_tf" {
   type  = each.value.type
   value = sensitive(each.value.value)
 
-  key_id = each.value.type == "SecureString" ? local.kms_key_id : null
+  key_id = each.value.type == "SecureString" ? local.kms_key_arn : null
 }
 
 resource "aws_ssm_parameter" "could_be_changed_outside_of_tf" {
@@ -31,7 +31,7 @@ resource "aws_ssm_parameter" "could_be_changed_outside_of_tf" {
   type  = each.value.type
   value = sensitive(each.value.value)
 
-  key_id = each.value.type == "SecureString" ? local.kms_key_id : null
+  key_id = each.value.type == "SecureString" ? local.kms_key_arn : null
 
   lifecycle {
     ignore_changes = [value]
