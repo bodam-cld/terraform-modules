@@ -82,7 +82,7 @@ data "aws_iam_policy_document" "ssm_and_secrets" {
       "kms:Decrypt"
     ]
 
-    resources = [var.kms_key_id]
+    resources = [local.kms_key_arn]
   }
 }
 
