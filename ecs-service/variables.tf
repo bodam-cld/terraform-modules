@@ -102,9 +102,9 @@ variable "listener_rules" {
   default = []
 }
 
-variable "kms_key_id" {
+variable "kms_key_arn" {
   type        = string
-  description = "The KMS key id that is used to encrypt SSM parameters, ECR repository, cloudwatch logs."
+  description = "The KMS key ARN that is used to encrypt SSM parameters, ECR repository, cloudwatch logs."
 }
 
 variable "ecr_image_tag_mutability" {
