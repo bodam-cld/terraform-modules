@@ -42,3 +42,12 @@ output "default_db_subnet_group_id" {
 output "default_db_subnet_group_arn" {
   value = var.create_db_subnet_groups ? aws_db_subnet_group.default[0].arn : null
 }
+
+output "iam_assume_groups" {
+  description = "to be fed into the iam_assume_groups input variable of the core-aws-main module"
+  value = {
+    "${var.environment}-admins"     = { roles = [module.iam_assumable_roles.admin_iam_role_arn] },
+    "${var.environment}-powerusers" = { roles = [module.iam_assumable_roles.poweruser_iam_role_arn] },
+    "${var.environment}-readonly"   = { roles = [module.iam_assumable_roles.readonly_iam_role_arn] },
+  }
+}
