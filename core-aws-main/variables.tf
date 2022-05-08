@@ -43,5 +43,5 @@ variable "billing_alarm" {
 variable "ci_deployer_role_arns" {
   description = "A list of IAM role ARNs that are allowed to be assumed by the CI deployer user"
   type        = list(string)
-  default     = []
+  default     = ["arn:aws:iam::*:role/*-deployer"]
 }
