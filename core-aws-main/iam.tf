@@ -45,7 +45,8 @@ resource "aws_iam_access_key" "ci_deployer" {
 
 data "aws_iam_policy_document" "ci_deployer_assume_policies" {
   statement {
-    actions   = ["sts:AssumeRole"]
+    actions = ["sts:AssumeRole"]
+    #tfsec:ignore:aws-iam-no-policy-wildcards => The default wildcard has some filtering in, doesn't allow all roles
     resources = var.ci_deployer_role_arns
   }
 }
