@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "ci_deployer_assume_policies" {
 }
 
 resource "aws_iam_user_policy" "ci_deployer_assume" {
-  name   = "assume-policies"
+  name   = "iam-assume-role_deployers"
   user   = aws_iam_user.ci_deployer.name
   policy = data.aws_iam_policy_document.ci_deployer_assume_policies.json
 }
