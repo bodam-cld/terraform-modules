@@ -39,3 +39,9 @@ variable "billing_alarm" {
     monthly_threshold = "100"
   }
 }
+
+variable "ci_deployer_role_arns" {
+  description = "A list of IAM role ARNs that are allowed to be assumed by the CI deployer user"
+  type        = list(string)
+  default     = ["arn:aws:iam::*:role/*-deployer"]
+}
