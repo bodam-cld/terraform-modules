@@ -1,6 +1,6 @@
-output "aws_route53_technical_domain" {
+output "aws_route53_main_domain" {
   value = {
-    name    = var.technical_domain
+    name    = var.main_domain_name
     zone_id = aws_route53_zone.this.id
   }
 }
@@ -31,8 +31,8 @@ output "datastore_subnet_ids" {
   value = module.vpc.intra_subnets
 }
 
-output "technical_wildcard_certificate_arn" {
-  value = module.technical_wildcard.certificate_arn
+output "main_wildcard_certificate_arn" {
+  value = module.main_wildcard_certificate.certificate_arn
 }
 
 output "default_db_subnet_group_id" {
