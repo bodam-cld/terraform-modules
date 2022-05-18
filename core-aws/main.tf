@@ -3,8 +3,8 @@ locals {
 }
 
 resource "aws_route53_zone" "this" {
-  name    = var.technical_domain
-  comment = "technical domain"
+  name    = var.main_domain_name
+  comment = "main domain"
 
   lifecycle {
     # reject with an error any plan that would destroy
