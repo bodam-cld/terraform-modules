@@ -1,13 +1,12 @@
 locals {
   domain_validation_options = {
+    # a cert can be requested for multiple domains and has a domain_validation_options object for each
     for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
     }
   }
-
-  validation_records = var.route53_zone_id == "" ? {} : local.domain_validation_options
 }
 
 resource "aws_acm_certificate" "this" {
@@ -17,7 +16,7 @@ resource "aws_acm_certificate" "this" {
 }
 
 resource "aws_route53_record" "this" {
-  for_each = local.validation_records
+  for_each = local.domain_validation_options
 
   allow_overwrite = true
   name            = each.value.name
