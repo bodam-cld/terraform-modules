@@ -90,14 +90,15 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_security_group_rule" "this_ingress" {
-  for_each = { for id in var.allow_ingress_from_security_group_ids : id => id }
+  count = length(var.allow_ingress_from_security_group_ids)
+  # for_each = { for id in var.allow_ingress_from_security_group_ids : id => id }
 
-  description       = "Allow ingress from ${each.value}"
+  description       = "Allow ingress from ${element(var.allow_ingress_from_security_group_ids, count.index)}"
   security_group_id = aws_security_group.this[0].id
 
   type                     = "ingress"
   from_port                = local.port
   to_port                  = local.port
   protocol                 = "tcp"
-  source_security_group_id = each.value
+  source_security_group_id = element(var.allow_ingress_from_security_group_ids, count.index)
 }
