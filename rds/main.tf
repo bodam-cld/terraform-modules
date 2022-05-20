@@ -91,7 +91,6 @@ resource "aws_security_group" "this" {
 
 resource "aws_security_group_rule" "this_ingress" {
   count = length(var.allow_ingress_from_security_group_ids)
-  # for_each = { for id in var.allow_ingress_from_security_group_ids : id => id }
 
   description       = "Allow ingress from ${element(var.allow_ingress_from_security_group_ids, count.index)}"
   security_group_id = aws_security_group.this[0].id
